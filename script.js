@@ -1,4 +1,3 @@
-```javascript
 const flashcards = [
     {
         question: "What is HTML?",
