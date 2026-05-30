@@ -1,29 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flashcard Quiz App</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcard Quiz App</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    width:450px;
+    text-align:center;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+.card{
+    background:#f8f8f8;
+    padding:30px;
+    border-radius:10px;
+    min-height:120px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+    font-size:16px;
+}
+
+.show{
+    background:#007bff;
+}
+
+.prev{
+    background:#28a745;
+}
+
+.next{
+    background:#ff9800;
+}
+
+button:hover{
+    opacity:0.9;
+}
+</style>
 </head>
+
 <body>
 
 <div class="container">
+
     <h1>Flashcard Quiz App</h1>
 
-    <div class="card">
-        <h2 id="question">Question</h2>
-        <p id="answer" class="hidden">Answer</p>
+    <div class="card" id="flashcard">
+        What is HTML?
     </div>
-
-    <button onclick="showAnswer()">Show Answer</button>
 
     <div class="buttons">
-        <button onclick="prevCard()">Previous</button>
-        <button onclick="nextCard()">Next</button>
+        <button class="show" onclick="showAnswer()">Show Answer</button>
+        <button class="prev" onclick="previousCard()">Previous</button>
+        <button class="next" onclick="nextCard()">Next</button>
     </div>
+
 </div>
 
-<script src="script.js"></script>
+<script>
+
+const flashcards = [
+{
+question:"What is HTML?",
+answer:"HTML stands for HyperText Markup Language."
+},
+{
+question:"What is CSS?",
+answer:"CSS is used to style web pages."
+},
+{
+question:"What is JavaScript?",
+answer:"JavaScript adds interactivity to web pages."
+},
+{
+question:"What is GitHub?",
+answer:"GitHub is a platform for hosting and sharing code."
+},
+{
+question:"What is Local Storage?",
+answer:"Local Storage stores data in the browser."
+}
+];
+
+let currentCard = 0;
+let showingAnswer = false;
+
+function displayCard(){
+    document.getElementById("flashcard").innerText =
+    flashcards[currentCard].question;
+    showingAnswer = false;
+}
+
+function showAnswer(){
+    if(!showingAnswer){
+        document.getElementById("flashcard").innerText =
+        flashcards[currentCard].answer;
+        showingAnswer = true;
+    }else{
+        document.getElementById("flashcard").innerText =
+        flashcards[currentCard].question;
+        showingAnswer = false;
+    }
+}
+
+function nextCard(){
+    currentCard++;
+
+    if(currentCard >= flashcards.length){
+        currentCard = 0;
+    }
+
+    displayCard();
+}
+
+function previousCard(){
+    currentCard--;
+
+    if(currentCard < 0){
+        currentCard = flashcards.length - 1;
+    }
+
+    displayCard();
+}
+
+displayCard();
+
+</script>
 
 </body>
 </html>
-```
